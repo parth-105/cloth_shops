@@ -10,7 +10,11 @@ import HeroSlider from "@/components/ui/HeroSlider";
 // import { getHeroImages } from "@/lib/data";
 
 
- const BASE_URL = 'http://localhost:5000'
+//  const BASE_URL = 'http://localhost:5000'
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+const MOBILE_NO = import.meta.env.VITE_MOBILE_NO;
 
 
  interface HeroImage {
