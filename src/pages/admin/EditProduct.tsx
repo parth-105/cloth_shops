@@ -64,6 +64,55 @@ const availableColors = ["Black", "White", "Red", "Blue", "Green", "Yellow", "Pu
   
   // Size options (for clothing)
   const availableSizes = ["XS", "S", "M", "L", "XL", "XXL", "28", "30", "32", "34", "36", "38", "40", "42"];
+
+  const getProductById = async (id) => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/products/${id}`);
+      if (!response.ok) {
+        throw new Error("Product not found");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching product:", error);
+      return null;
+    }
+  };
+
+
+  useEffect(() => {
+    if (!id) return;
+  
+    const fetchProduct = async () => {
+      const product = await getProductById(id);
+  
+      if (!product) {
+        toast({
+          title: "Error",
+          description: "Product not found",
+          variant: "destructive",
+        });
+        navigate("/admin/products");
+        return;
+      }
+  
+      setName(product.name);
+      setDescription(product.description);
+      setPrice(product.price.toString());
+      setOriginalPrice(product.originalPrice?.toString() || "");
+      setCategory(product.category);
+      setSizes(product.sizes);
+      setColor(product.color);
+      //setStock(product.stock.toString());
+      setIsNew(product.isNew || false);
+      setIsFeatured(product.isFeatured || false);
+      setImages(product.images);
+      setVariations(product.variations);
+    };
+  
+    fetchProduct();
+  }, [id, navigate, toast]);
+  
+  
   
   // Load product data
   // useEffect(() => {
