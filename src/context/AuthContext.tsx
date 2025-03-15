@@ -220,7 +220,12 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
-const BASE_URL = 'http://localhost:5000'
+// const BASE_URL = 'http://localhost:5000'
+
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+
 
 type User = {
   id: string;
