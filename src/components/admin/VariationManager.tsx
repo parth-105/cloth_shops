@@ -80,8 +80,8 @@ const VariationManager: React.FC<VariationManagerProps> = ({
   };
   
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 overflow-x-auto w-full">
+      <div className="flex items-center justify-between flex-wrap" >
         <h3 className="text-lg font-medium">Stock Variations</h3>
         <Button 
           onClick={handleAddNew} 
@@ -177,7 +177,7 @@ const VariationManager: React.FC<VariationManagerProps> = ({
       )}
       
       {/* Variations Table */}
-      <div className="border rounded-md overflow-hidden">
+      <div className="border rounded-md overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>

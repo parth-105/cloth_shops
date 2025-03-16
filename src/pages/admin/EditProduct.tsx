@@ -174,8 +174,24 @@ const availableColors = ["Black", "White", "Red", "Blue", "Green", "Yellow", "Pu
 
   const handleAddVariation = (variation: {size: string, color: string, stock: number}) => {
     if (!id) return;
-    addVariation(id, variation);
-    setVariations([...variations, variation]);
+
+    const exists = variations.some(
+      v => v.size === variation.size && v.color.toLowerCase() ||v.color === variation.color
+    );
+    
+    if (!exists) {
+      addVariation(id, variation);
+      setVariations([...variations, variation]);
+    } else {
+      toast({
+        title: "Variation exists",
+        description: `A variation with size ${variation.size} and color ${variation.color} already exists`,
+        variant: "destructive"
+      });
+    }
+
+    // addVariation(id, variation);
+    // setVariations([...variations, variation]);
   };
   
   const handleUpdateVariation = (variation: {size: string, color: string, stock: number}) => {
