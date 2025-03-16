@@ -63,16 +63,18 @@ const RecentProducts: React.FC<RecentProductsProps> = ({ products }) => {
                   ${product.price.toFixed(2)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span 
-                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                    ${product.stock > 5 
-                      ? 'bg-green-100 text-green-800' 
-                      : product.stock > 0 
-                        ? 'bg-yellow-100 text-yellow-800' 
-                        : 'bg-red-100 text-red-800'}`}
-                  >
-                    {product.stock > 0 ? product.stock : 'Out of stock'}
-                  </span>
+                <span
+              className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+  ${product.variations.reduce((total, variation) => total + variation.stock, 0) > 5
+                  ? 'bg-green-100 text-green-800'
+                  : product.variations.reduce((total, variation) => total + variation.stock, 0) > 0
+                    ? 'bg-yellow-100 text-yellow-800'
+                    : 'bg-red-100 text-red-800'}`}
+            >
+              {product.variations.reduce((total, variation) => total + variation.stock, 0) > 0
+                ? "In Stock"
+                : 'Out of stock'}
+            </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <Link 

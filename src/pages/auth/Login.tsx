@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+// import Navbar from "@/components/layout/Navbar";
+// import Footer from "@/components/layout/Footer";
 import { useAuth } from "@/context/AuthContext";
-import { Lock, User, Loader2 } from "lucide-react";
+import { Lock, User, Loader2, ArrowLeft } from "lucide-react";
 
 const Login: React.FC = () => {
   const [mobile, setMobile] = useState("");
@@ -74,9 +74,18 @@ const Login: React.FC = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
+    <div className="min-h-screen flex flex-col relative">
+    {/* Back to Home Button in Upper Left */}
+    <Link
+      to="/"
+      className="absolute top-6 left-6 inline-flex items-center text-mutedTeal hover:underline font-medium"
+    >
+      <ArrowLeft size={18} className="mr-2" />
+      Back to Home
+    </Link>
       
+       {/* <Navbar /> */}
+
       <main className="flex-1 pt-24 pb-16 flex items-center">
         <div className="container mx-auto px-4">
           <div className="max-w-md mx-auto">
@@ -173,16 +182,16 @@ const Login: React.FC = () => {
               </div>
               
               <div className="mt-6 flex items-center justify-center">
-                <Link to="/auth/admin-login" className="text-sm text-gray-500 hover:text-mutedTeal">
+                {/* <Link to="/auth/admin-login" className="text-sm text-gray-500 hover:text-mutedTeal">
                   Admin Login
-                </Link>
+                </Link> */}
               </div>
             </motion.div>
           </div>
         </div>
       </main>
       
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

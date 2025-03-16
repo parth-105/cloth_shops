@@ -31,7 +31,7 @@ const QuickActions: React.FC = () => {
           <span>Manage Products</span>
         </Link>
         
-        <Link 
+        {/* <Link 
           to="/admin/orders" 
           className="bg-white p-4 rounded-lg shadow-sm border border-champagne/20 hover:shadow-md transition-shadow flex items-center"
         >
@@ -39,7 +39,7 @@ const QuickActions: React.FC = () => {
             <ShoppingCart size={18} className="text-dustyRose" />
           </div>
           <span>View Orders</span>
-        </Link>
+        </Link> */}
         
         <Link 
           to="/admin/hero-images" 

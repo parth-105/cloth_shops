@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+// import Navbar from "@/components/layout/Navbar";
+// import Footer from "@/components/layout/Footer";
 import { useAuth } from "@/context/AuthContext";
-import { Loader2, Mail, User, Lock, ShieldAlert } from "lucide-react";
+import { Loader2, Mail, User, Lock, ShieldAlert, ArrowLeft } from "lucide-react";
 
 const Register: React.FC = () => {
   const [name, setName] = useState("");
@@ -14,10 +14,10 @@ const Register: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminNotice, setAdminNotice] = useState(false);
-  
+
   const { register, authLoading } = useAuth();
   const navigate = useNavigate();
-  
+
   const [errors, setErrors] = useState({
     name: "",
     mobile: "",
@@ -25,7 +25,7 @@ const Register: React.FC = () => {
     confirmPassword: "",
     general: "",
   });
-  
+
   const validateForm = () => {
     let valid = true;
     const newErrors = {
@@ -35,12 +35,12 @@ const Register: React.FC = () => {
       confirmPassword: "",
       general: "",
     };
-    
+
     if (!name.trim()) {
       newErrors.name = "Name is required";
       valid = false;
     }
-    
+
     if (!mobile.trim()) {
       newErrors.mobile = "Mobile number is required";
       valid = false;
@@ -48,7 +48,7 @@ const Register: React.FC = () => {
       newErrors.mobile = "Enter a valid 10-digit mobile number";
       valid = false;
     }
-    
+
     if (!password) {
       newErrors.password = "Password is required";
       valid = false;
@@ -59,30 +59,30 @@ const Register: React.FC = () => {
       newErrors.password = "Password must include at least one special character";
       valid = false;
     }
-    
+
     if (password !== confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match";
       valid = false;
     }
-    
+
     setErrors(newErrors);
     return valid;
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     setIsSubmitting(true);
-    
+
     try {
       if (isAdmin && mobile !== "1234567890") {
         setAdminNotice(true);
       }
-      
+
       const success = await register(name, mobile, password, isAdmin);
-      
+
       if (success) {
         if (!isAdmin || mobile === "1234567890") {
           navigate("/");
@@ -104,11 +104,20 @@ const Register: React.FC = () => {
       setIsSubmitting(false);
     }
   };
-  
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
+    <div className="min-h-screen flex flex-col relative">
+    {/* Back to Home Button in Upper Left */}
+    <Link
+      to="/"
+      className="absolute top-6 left-6 inline-flex items-center text-mutedTeal hover:underline font-medium"
+    >
+      <ArrowLeft size={18} className="mr-2" />
+      Back to Home
+    </Link>
+
+     {/* <Navbar /> */}
+
       <main className="flex-1 pt-24 pb-16 flex items-center">
         <div className="container mx-auto px-4">
           <div className="max-w-md mx-auto">
@@ -146,13 +155,13 @@ const Register: React.FC = () => {
                     Join us to enjoy a personalized shopping experience
                   </p>
                 </div>
-                
+
                 {errors.general && (
                   <div className="mb-6 p-3 bg-red-50 border border-red-200 text-red-600 rounded-md text-sm">
                     {errors.general}
                   </div>
                 )}
-                
+
                 <form onSubmit={handleSubmit}>
                   <div className="mb-4">
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -175,7 +184,7 @@ const Register: React.FC = () => {
                       <p className="mt-1 text-sm text-red-600">{errors.name}</p>
                     )}
                   </div>
-                  
+
                   <div className="mb-4">
                     <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 mb-1">
                       Mobile Number
@@ -197,7 +206,7 @@ const Register: React.FC = () => {
                       <p className="mt-1 text-sm text-red-600">{errors.mobile}</p>
                     )}
                   </div>
-                  
+
                   <div className="mb-4">
                     <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                       Password
@@ -222,7 +231,7 @@ const Register: React.FC = () => {
                       Password must be at least 8 characters and include at least one special character.
                     </p>
                   </div>
-                  
+
                   <div className="mb-4">
                     <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
                       Confirm Password
@@ -244,8 +253,8 @@ const Register: React.FC = () => {
                       <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
                     )}
                   </div>
-                  
-                  <div className="mb-6">
+
+                  {/* <div className="mb-6">
                     <label className="flex items-center">
                       <input
                         type="checkbox"
@@ -262,8 +271,8 @@ const Register: React.FC = () => {
                         )}
                       </span>
                     </label>
-                  </div>
-                  
+                  </div> */}
+
                   <button
                     type="submit"
                     disabled={isSubmitting || authLoading}
@@ -279,7 +288,7 @@ const Register: React.FC = () => {
                     )}
                   </button>
                 </form>
-                
+
                 <div className="mt-6 text-center text-sm">
                   <span className="text-gray-600">Already have an account?</span>{" "}
                   <Link to="/auth/login" className="text-mutedTeal hover:underline font-medium">
@@ -291,8 +300,8 @@ const Register: React.FC = () => {
           </div>
         </div>
       </main>
-      
-      <Footer />
+
+      {/* <Footer /> */}
     </div>
   );
 };
